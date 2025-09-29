@@ -1,0 +1,63 @@
+@font-face {
+	font-family: "Involve";
+	src: url("../fonts/Involve-BoldOblique.woff2") format("woff2"), url("../fonts/Involve-BoldOblique.woff") format("woff");
+	font-weight: bold;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Involve";
+	src: url("../fonts/Involve-Bold.woff2") format("woff2"), url("../fonts/Involve-Bold.woff") format("woff");
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Involve";
+	src: url("../fonts/Involve-MediumOblique.woff2") format("woff2"), url("../fonts/Involve-MediumOblique.woff") format("woff");
+	font-weight: 500;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Involve";
+	src: url("../fonts/Involve-Regular.woff2") format("woff2"), url("../fonts/Involve-Regular.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Involve";
+	src: url("../fonts/Involve-SemiBoldOblique.woff2") format("woff2"), url("../fonts/Involve-SemiBoldOblique.woff") format("woff");
+	font-weight: 600;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Involve";
+	src: url("../fonts/Involve-Medium.woff2") format("woff2"), url("../fonts/Involve-Medium.woff") format("woff");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Involve";
+	src: url("../fonts/Involve-SemiBold.woff2") format("woff2"), url("../fonts/Involve-SemiBold.woff") format("woff");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Involve";
+	src: url("../fonts/Involve-Oblique.woff2") format("woff2"), url("../fonts/Involve-Oblique.woff") format("woff");
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}

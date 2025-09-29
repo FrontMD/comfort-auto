@@ -1,0 +1,868 @@
+<html lang="ru">
+
+<head>
+    <style>
+        body {
+            transition: opacity ease-in 0.2s;
+        }
+
+        body[unresolved] {
+            opacity: 0;
+            display: block;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, user-scalable=1"
+        name="viewport">
+    <title>Купить автомобиль</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="Комфорт РНД">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="../img/logo/01JRWSWB95J6GP3H48S5929RP8.svg">
+
+    <link href="../css/vendors/reset.css" rel="stylesheet">
+    <link href="../css/vendors/select2.min.css" rel="stylesheet">
+    <link href="../css/vendors/jquery.fancybox.min.css" rel="stylesheet">
+    <link href="../css/vendors/swiper-bundle.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/dev.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/vendors/toastr.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="../img/favicon/01JRWSWB976MM8B6QGFWZY4DYW.ico">
+
+    <style>
+        /* Make clicks pass-through */
+
+        #nprogress {
+            pointer-events: none;
+        }
+
+        #nprogress .bar {
+            background: var(--livewire-progress-bar-color, #29d);
+
+            position: fixed;
+            z-index: 1031;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 2px;
+        }
+
+        /* Fancy blur effect */
+        #nprogress .peg {
+            display: block;
+            position: absolute;
+            right: 0px;
+            width: 100px;
+            height: 100%;
+            box-shadow: 0 0 10px var(--livewire-progress-bar-color, #29d), 0 0 5px var(--livewire-progress-bar-color, #29d);
+            opacity: 1.0;
+
+            -webkit-transform: rotate(3deg) translate(0px, -4px);
+            -ms-transform: rotate(3deg) translate(0px, -4px);
+            transform: rotate(3deg) translate(0px, -4px);
+        }
+
+        /* Remove these to get rid of the spinner */
+        #nprogress .spinner {
+            display: block;
+            position: fixed;
+            z-index: 1031;
+            top: 15px;
+            right: 15px;
+        }
+
+        #nprogress .spinner-icon {
+            width: 18px;
+            height: 18px;
+            box-sizing: border-box;
+
+            border: solid 2px transparent;
+            border-top-color: var(--livewire-progress-bar-color, #29d);
+            border-left-color: var(--livewire-progress-bar-color, #29d);
+            border-radius: 50%;
+
+            -webkit-animation: nprogress-spinner 400ms linear infinite;
+            animation: nprogress-spinner 400ms linear infinite;
+        }
+
+        .nprogress-custom-parent {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .nprogress-custom-parent #nprogress .spinner,
+        .nprogress-custom-parent #nprogress .bar {
+            position: absolute;
+        }
+
+        @-webkit-keyframes nprogress-spinner {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes nprogress-spinner {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__top header-top">
+            <div class="container">
+                <div class="header-top__inner">
+                    <div class="header-top__address">
+                        Ростовская обл., хутор Ленинакан, ул. Торговый проспект, д. 17
+                    </div>
+                    <div class="header-top__time">Ежедневно, с 09:00 до 20:00</div>
+                    <div class="header-top__contacts">
+                        <div class="region">
+                            <div
+                                style="width: 32px; height: 24px; background: url('data:image/svg+xml,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22none%22/%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M9.55879%203.6972C10.7552%202.02216%2013.2447%202.02216%2014.4412%203.6972L14.6317%203.96387C14.8422%204.25867%2015.1958%204.41652%2015.5558%204.37652L16.4048%204.28218C18.3156%204.06988%2019.9301%205.68439%2019.7178%207.59513L19.6235%208.44415C19.5835%208.8042%2019.7413%209.15774%2020.0361%209.36831L20.3028%209.55879C21.9778%2010.7552%2021.9778%2013.2447%2020.3028%2014.4412L20.0361%2014.6317C19.7413%2014.8422%2019.5835%2015.1958%2019.6235%2015.5558L19.7178%2016.4048C19.9301%2018.3156%2018.3156%2019.9301%2016.4048%2019.7178L15.5558%2019.6235C15.1958%2019.5835%2014.8422%2019.7413%2014.6317%2020.0361L14.4412%2020.3028C13.2447%2021.9778%2010.7553%2021.9778%209.55879%2020.3028L9.36831%2020.0361C9.15774%2019.7413%208.8042%2019.5835%208.44414%2019.6235L7.59513%2019.7178C5.68439%2019.9301%204.06988%2018.3156%204.28218%2016.4048L4.37652%2015.5558C4.41652%2015.1958%204.25867%2014.8422%203.96387%2014.6317L3.6972%2014.4412C2.02216%2013.2447%202.02216%2010.7553%203.6972%209.55879L3.96387%209.36831C4.25867%209.15774%204.41652%208.8042%204.37652%208.44414L4.28218%207.59513C4.06988%205.68439%205.68439%204.06988%207.59513%204.28218L8.44415%204.37652C8.8042%204.41652%209.15774%204.25867%209.36831%203.96387L9.55879%203.6972ZM15.7071%209.29289C16.0976%209.68342%2016.0976%2010.3166%2015.7071%2010.7071L11.8882%2014.526C11.3977%2015.0166%2010.6023%2015.0166%2010.1118%2014.526L8.29289%2012.7071C7.90237%2012.3166%207.90237%2011.6834%208.29289%2011.2929C8.68342%2010.9024%209.31658%2010.9024%209.70711%2011.2929L11%2012.5858L14.2929%209.29289C14.6834%208.90237%2015.3166%208.90237%2015.7071%209.29289Z%22%20fill%3D%22%23f6cf1b%22/%3E%3C/svg%3E') no-repeat center center;">
+                            </div>
+                            <div>
+                                Официальный дилер <br> марки SWM
+                            </div>
+                        </div>
+
+                        <div class="header-top__phone">
+                            <a href="tel:+78632093009">+7 (863) 209-30-09</a>
+                        </div>
+                        <div class="header-top__feedback">
+                            <a class="btn btn--sm btn--primary" data-fancybox="" href="#popup-feedback">Обратный
+                                звонок</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header__main header-main">
+            <div class="container">
+                <div class="header-main__inner">
+                    <a class="header-main__logo" href="/">
+                        <img src="../img/logo/01JRWSWB95J6GP3H48S5929RP8.svg" alt="Комфорт РНД">
+                    </a>
+                    <nav class="header-main__nav header-main-nav">
+                        <ul class="header-main-nav__list">
+                            <li class="header-main-nav__item">
+                                <a class="header-main-nav__item-link   " href="../used/index.html">С
+                                    пробегом</a>
+                            </li>
+                            <li class="header-main-nav__item">
+                                <a class="header-main-nav__item-link   " href="../credit/index.html">Кредит</a>
+                            </li>
+                            <li class="header-main-nav__item">
+                                <a class="header-main-nav__item-link current" href="../contact/index.html">Контакты</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="header__mobile-top header-mobile-top">
+            <div class="container">
+                <div class="header-mobile-top__inner">
+                    <div class="header-mobile-top__time">Ежедневно, с 09:00 до 20:00</div>
+                    <div class="header-mobile-top__phone"><a href="tel:+78632093009" class="">+7 (863) 209-30-09</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header__mobile header-mobile">
+            <div class="container">
+                <div class="header-mobile__inner">
+                    <a class="header-mobile__logo" href="/">
+                        <img src="../img/logo/01JRWSWB95J6GP3H48S5929RP8.svg" alt="Комфорт РНД">
+                    </a>
+                    <div class="header-mobile__contacts">
+                        <div class="header-mobile__feedback">
+                            <a class="js-toggle-marks btn btn--primary" href="javascript:;">
+                                Каталог
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M23.2936 13.2535C23.2188 13.2535 23.1422 13.2642 23.0656 13.2853L22.1993 13.5238L21.3 11.3328C21.0452 10.7121 20.292 10.2071 19.621 10.2071H16.7157V8.52793C16.7157 7.90472 16.523 6.92835 16.2864 6.35157L16.1412 5.99801H16.2512C16.7541 5.99801 17.1633 5.58883 17.1633 5.08593V4.57521C17.1633 4.14442 16.8662 3.83167 16.4569 3.83167C16.3821 3.83167 16.3055 3.84241 16.2289 3.86339L15.3627 4.10195L14.4632 1.91098C14.2085 1.29026 13.4553 0.785278 12.7842 0.785278H4.36692C3.69601 0.785278 2.94286 1.29026 2.68792 1.91098L1.78972 4.09903L0.934516 3.86349C0.858022 3.84241 0.781216 3.83167 0.706496 3.83167C0.297104 3.83167 0 4.14432 0 4.57521V5.08593C0 5.58883 0.409183 5.99801 0.912079 5.99801H1.01007L0.86491 6.35157C0.628124 6.92814 0.435586 7.9044 0.435586 8.52793V12.8807C0.435586 13.3836 0.844769 13.7927 1.34766 13.7927H2.53911C3.042 13.7927 3.45119 13.3836 3.45119 12.8807V11.7937H9.33525L8.62625 13.5208L7.77094 13.2851C7.69444 13.2641 7.61774 13.2534 7.54292 13.2534C7.13363 13.2534 6.83653 13.5662 6.83653 13.997V14.5077C6.83653 15.0106 7.24571 15.4198 7.7486 15.4198H7.8466L7.70133 15.7734C7.46465 16.35 7.27201 17.3263 7.27201 17.9498V22.3025C7.27201 22.8054 7.68119 23.2146 8.18409 23.2146H9.37542C9.87832 23.2146 10.2875 22.8054 10.2875 22.3025V21.2155H20.5366V22.3025C20.5366 22.8054 20.9458 23.2146 21.4487 23.2146H22.6399C23.1428 23.2146 23.552 22.8054 23.552 22.3025V17.9498C23.552 17.3263 23.3594 16.35 23.1227 15.7734L22.9775 15.4198H23.0876C23.5905 15.4198 23.9997 15.0106 23.9997 14.5077V13.997C24 13.5662 23.7029 13.2535 23.2936 13.2535ZM14.9603 8.45405V9.69444C14.9603 9.89511 14.7961 10.0593 14.5955 10.0593H12.0109C11.8102 10.0593 11.646 9.89511 11.646 9.69444V8.45405C11.646 8.25337 11.8102 8.08922 12.0109 8.08922H14.5955C14.7961 8.08922 14.9603 8.25337 14.9603 8.45405ZM5.48093 9.69444C5.48093 9.89511 5.31678 10.0593 5.1161 10.0593H2.53159C2.33092 10.0593 2.16676 9.89511 2.16676 9.69444V8.45405C2.16676 8.25337 2.33092 8.08922 2.53159 8.08922H5.1162C5.31688 8.08922 5.48103 8.25337 5.48103 8.45405L5.48093 9.69444ZM2.89643 6.17761C2.49507 6.17761 2.29147 5.87383 2.44383 5.50252L3.80423 2.18846C3.95669 1.81716 4.40971 1.51338 4.81096 1.51338H12.3402C12.7416 1.51338 13.1947 1.81716 13.3469 2.18846L14.7075 5.50252C14.8599 5.87383 14.6563 6.17761 14.2549 6.17761H2.89643ZM9.28035 14.9244L10.6409 11.6103C10.7932 11.239 11.2463 10.9352 11.6476 10.9352H19.1768C19.5782 10.9352 20.0313 11.239 20.1837 11.6103L21.5441 14.9244C21.6965 15.2957 21.4928 15.5995 21.0915 15.5995H9.73295C9.33159 15.5995 9.12799 15.2957 9.28035 14.9244ZM12.3176 19.1163C12.3176 19.317 12.1534 19.4811 11.9527 19.4811H9.36812C9.16744 19.4811 9.00329 19.317 9.00329 19.1163V17.8759C9.00329 17.6752 9.16744 17.5111 9.36812 17.5111H11.9528C12.1535 17.5111 12.3177 17.6752 12.3177 17.8759L12.3176 19.1163ZM21.7967 19.1163C21.7967 19.317 21.6326 19.4811 21.4319 19.4811H18.8474C18.6467 19.4811 18.4825 19.317 18.4825 19.1163V17.8759C18.4825 17.6752 18.6467 17.5111 18.8474 17.5111H21.4319C21.6326 17.5111 21.7967 17.6752 21.7967 17.8759V19.1163Z"
+                                        fill="black"></path>
+                                </svg>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="header-mobile__toggle js-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header__mobile-menu header-mobile-menu js-menu">
+            <div class="container">
+                <div class="header-mobile-menu__inner">
+                    <nav class="header-mobile-menu__nav">
+                        <ul class="header-mobile-menu__list">
+                            <li class="header-mobile-menu__item">
+                                <a class=" header-mobile-menu__item-link   " href="../used/index.html">С
+                                    пробегом</a>
+                            </li>
+                            <li class="header-mobile-menu__item">
+                                <a class=" header-mobile-menu__item-link   " href="../credit/index.html">Кредит</a>
+                            </li>
+                            <li class="header-mobile-menu__item">
+                                <a class=" header-mobile-menu__item-link current"
+                                    href="../contact/index.html">Контакты</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="header-mobile-menu__info">
+                        <div class="region">
+                            <div
+                                style="width: 32px; height: 24px; background: url('data:image/svg+xml,%3Csvg%20width%3D%2224px%22%20height%3D%2224px%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20width%3D%2224%22%20height%3D%2224%22%20fill%3D%22none%22/%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M9.55879%203.6972C10.7552%202.02216%2013.2447%202.02216%2014.4412%203.6972L14.6317%203.96387C14.8422%204.25867%2015.1958%204.41652%2015.5558%204.37652L16.4048%204.28218C18.3156%204.06988%2019.9301%205.68439%2019.7178%207.59513L19.6235%208.44415C19.5835%208.8042%2019.7413%209.15774%2020.0361%209.36831L20.3028%209.55879C21.9778%2010.7552%2021.9778%2013.2447%2020.3028%2014.4412L20.0361%2014.6317C19.7413%2014.8422%2019.5835%2015.1958%2019.6235%2015.5558L19.7178%2016.4048C19.9301%2018.3156%2018.3156%2019.9301%2016.4048%2019.7178L15.5558%2019.6235C15.1958%2019.5835%2014.8422%2019.7413%2014.6317%2020.0361L14.4412%2020.3028C13.2447%2021.9778%2010.7553%2021.9778%209.55879%2020.3028L9.36831%2020.0361C9.15774%2019.7413%208.8042%2019.5835%208.44414%2019.6235L7.59513%2019.7178C5.68439%2019.9301%204.06988%2018.3156%204.28218%2016.4048L4.37652%2015.5558C4.41652%2015.1958%204.25867%2014.8422%203.96387%2014.6317L3.6972%2014.4412C2.02216%2013.2447%202.02216%2010.7553%203.6972%209.55879L3.96387%209.36831C4.25867%209.15774%204.41652%208.8042%204.37652%208.44414L4.28218%207.59513C4.06988%205.68439%205.68439%204.06988%207.59513%204.28218L8.44415%204.37652C8.8042%204.41652%209.15774%204.25867%209.36831%203.96387L9.55879%203.6972ZM15.7071%209.29289C16.0976%209.68342%2016.0976%2010.3166%2015.7071%2010.7071L11.8882%2014.526C11.3977%2015.0166%2010.6023%2015.0166%2010.1118%2014.526L8.29289%2012.7071C7.90237%2012.3166%207.90237%2011.6834%208.29289%2011.2929C8.68342%2010.9024%209.31658%2010.9024%209.70711%2011.2929L11%2012.5858L14.2929%209.29289C14.6834%208.90237%2015.3166%208.90237%2015.7071%209.29289Z%22%20fill%3D%22%23f6cf1b%22/%3E%3C/svg%3E') no-repeat;">
+                            </div>
+                            <div>
+                                Официальный дилер марки SWM
+                            </div>
+                        </div>
+                        <div class="header-mobile-menu__address">Ростовская обл., хутор Ленинакан, ул. Торговый
+                            проспект, д. 17</div>
+                        <div class="header-mobile-menu__time">Ежедневно, с 09:00 до 20:00</div>
+                        <div class="header-mobile-menu__contacts">
+                            <div class="header-mobile-menu__phone">
+                                <a href="tel:+78632093009">+7 (863) 209-30-09</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header__mobile-marks header-mobile-marks js-marks">
+            <section class="section marks-slider">
+                <div class="container">
+                    <div class="marks-slider__inner">
+                        <div class="swiper">
+                            <div class="swiper-navigation">
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-pagination">
+                                </div>
+                                <div class="swiper-button-next"></div>
+                            </div>
+                            <div class="swiper-wrapper">
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/9af28fcbc568c763cec220e98b5682f09308832f.png" alt="Changan">
+                                    <span>Changan</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/01JNJTTM7NRY8VK5SHMAP3NSS1.svg" alt="Chery">
+                                    <span>Chery</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/9bcb9510e173edd77879fb885c6df8277ea8df87.png"
+                                        alt="Chevrolet">
+                                    <span>Chevrolet</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/citroen.webp" alt="Citroen">
+                                    <span>Citroen</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/6730c3a48868a37a4dbea2d713c6a8bae3d059e2.png" alt="DongFeng">
+                                    <span>DongFeng</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/01JNJRZX11MQAEAHBDWKGXF9GQ.png" alt="EXEED">
+                                    <span>EXEED</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/137e42b141a0aac55e184e828243fd3de6604a01.png" alt="FAW">
+                                    <span>FAW</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/26ae59ecc40470b7e63df5504229128c02d939f9.webp" alt="Ford">
+                                    <span>Ford</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/579b59e25cc2f0c4639d308c7d5dac75db04a90e.png" alt="GAC">
+                                    <span>GAC</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/01JNJS7CCB7FF7H8Y5T2K73T89.png" alt="Geely">
+                                    <span>Geely</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/01JNJSCD31ZFPGQ6ZNDPCNS45W.png" alt="Haval">
+                                    <span>Haval</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/honda.webp" alt="Honda">
+                                    <span>Honda</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/914515a1cd6ce8a3381af407d2bba71c9f41b8ba.png" alt="Hyundai">
+                                    <span>Hyundai</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/86a647c6b1289e6bf261ff0c4f8a951200c2e93a.png" alt="JAC">
+                                    <span>JAC</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/01JNJT2GXAX9Y3Q7DT9JSGNGKR.svg" alt="Jetour">
+                                    <span>Jetour</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/c37145cb256b6f5a8f1013a229bd12569eb4a50f.png" alt="Kia">
+                                    <span>Kia</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/01JNJTRRPA8M25GVS659XH1SXC.svg" alt="Lada">
+                                    <span>Lada</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/42f7a0f4a845fe44f3ce0729ce11d77d0369c6cb.png.1719905668"
+                                        alt="Mazda">
+                                    <span>Mazda</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/bfe20460de950841a6f3596411f9e279a9bce2ac.png.1719487504"
+                                        alt="Mitsubishi">
+                                    <span>Mitsubishi</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/999446d8b854922c199e7bdbeb1b2d6933074855.png" alt="Nissan">
+                                    <span>Nissan</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/01JNJTKG6TYNP2W659NGPGJG7K.svg" alt="Omoda">
+                                    <span>Omoda</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/opel.png" alt="Opel">
+                                    <span>Opel</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/peugeot.png" alt="Peugeot">
+                                    <span>Peugeot</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/643e5f55c58d93e6697e839c1256a251d8571e5a.png" alt="Renault">
+                                    <span>Renault</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/32322c7e8f660de0633ff74b8b8163cf1bbe80b7.png" alt="Skoda">
+                                    <span>Skoda</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/01JN29VHAYA2C1Z6MXEM0K5KNZ.webp" alt="Subaru">
+                                    <span>Subaru</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/suzuki.png" alt="Suzuki">
+                                    <span>Suzuki</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/c68d5fa4f4726d681967552ddbf3e0f3529b4ccf.png" alt="Tank">
+                                    <span>Tank</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/e87bd60842257fb5d6365ae294f098b8911def22.png" alt="Toyota">
+                                    <span>Toyota</span>
+                                </a>
+                                <a class="marks-slider__item swiper-slide marks-item" href="javascript:void(0);">
+                                    <img src="../img/marks/01JNJV7MT476PHR83A7V4KGASC.png" alt="UAZ">
+                                    <span>UAZ</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </header>
+    <div class="page">
+        <main class="main">
+            <section class="breadcrumbs">
+                <div class="container">
+                    <a href="/" class="breadcrumbs__item">Главная</a>
+                    <span class="breadcrumbs__item breadcrumbs__item--current">Контакты</span>
+                </div>
+            </section>
+            <section class="section contacts-main">
+                <div class="container">
+                    <h1 class="section__title">Контакты автосалона Комфорт РНД в Ростове-на-Дону</h1>
+
+                    <div class="contacts-main__inner">
+                        <div class="contacts-main__info-card">
+                            <div class="contacts-main__group">
+                                <div class="contacts-main__group-name">Адрес:</div>
+                                <div class="contacts-main__group-value">Ростовская обл., хутор Ленинакан, ул. Торговый
+                                    проспект, д. 17</div>
+                            </div>
+                            <div class="contacts-main__group">
+                                <div class="contacts-main__group-name">График работы:</div>
+                                <div class="contacts-main__group-value">Ежедневно, с 09:00 до 20:00</div>
+                            </div>
+                            <div class="contacts-main__group">
+                                <div class="contacts-main__phone">
+                                    <a href="tel:+78633204221" class="">+7 (863) 320-42-21</a>
+                                </div>
+                                <div class="contacts-main__feedback">
+                                    <a class="btn btn--primary" data-fancybox="" href="#popup-feedback">Обратный
+                                        звонок</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="contacts-main__map">
+                            <div style="position: relative; overflow: hidden">
+                                <iframe
+                                    src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae5aa055319225183a508dcf6556fb9c98e77be7ffdf06d263e7c5fcd3a2d7d11&amp;source=constructor"
+                                    width="100%" height="100%" frameborder="0"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="footer__main footer-main">
+                <div class="container">
+                    <div class="footer-main__inner">
+                        <a class="footer-main__logo" href="/">
+                            <img src="../img/logo/01JRWSWB95J6GP3H48S5929RP8.svg" alt="Комфорт РНД">
+                        </a>
+                        <nav class="footer-main__nav header-main-nav">
+                            <ul class="header-main-nav__list">
+                                <li class=" header-main-nav__item ">
+                                    <a href="../used/index.html" class="header-main-nav__item-link ">
+                                        С пробегом
+                                    </a>
+                                </li>
+                                <li class=" header-main-nav__item ">
+                                    <a href="../credit/index.html" class="header-main-nav__item-link ">
+                                        Кредит
+                                    </a>
+                                </li>
+                                <li class=" header-main-nav__item">
+                                    <a href="../contact/index.html" class="header-main-nav__item-link current">
+                                        Контакты
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__info footer-info">
+                <div class="container">
+                    <div class="footer-info__inner">
+                        <div class="footer-info__main">
+                            <div class="footer-info__place">
+                                <div class="footer-info__time">Ежедневно, с 09:00 до 20:00</div>
+                                <div class="footer-info__address">Ростовская обл., хутор Ленинакан, ул. Торговый
+                                    проспект, д. 17</div>
+                            </div>
+                            <div class="footer-info__contacts">
+                                <div class="footer-info__phone">
+                                    <a href="tel:+78632093009" class="">+7 (863) 209-30-09</a>
+                                </div>
+                                <div class="footer-info__feedback">
+                                    <a class="btn btn--primary" data-fancybox="" href="#popup-feedback">Обратный
+                                        звонок</a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="footer-info__cars">
+                            <li><a href="javascript:void(0);">Changan</a></li>
+                            <li><a href="javascript:void(0);">Chery</a></li>
+                            <li><a href="javascript:void(0);">Chevrolet</a></li>
+                            <li><a href="javascript:void(0);">Citroen</a></li>
+                            <li><a href="javascript:void(0);">DongFeng</a></li>
+                            <li><a href="javascript:void(0);">EXEED</a></li>
+                            <li><a href="javascript:void(0);">FAW</a></li>
+                            <li><a href="javascript:void(0);">Ford</a></li>
+                            <li><a href="javascript:void(0);">GAC</a></li>
+                            <li><a href="javascript:void(0);">Geely</a></li>
+                            <li><a href="javascript:void(0);">Haval</a></li>
+                            <li><a href="javascript:void(0);">Honda</a></li>
+                            <li><a href="javascript:void(0);">Hyundai</a></li>
+                            <li><a href="javascript:void(0);">JAC</a></li>
+                            <li><a href="javascript:void(0);">Jetour</a></li>
+                            <li><a href="javascript:void(0);">Kia</a></li>
+                            <li><a href="javascript:void(0);">Lada</a></li>
+                            <li><a href="javascript:void(0);">Mazda</a></li>
+                            <li><a href="javascript:void(0);">Mitsubishi</a></li>
+                            <li><a href="javascript:void(0);">Nissan</a></li>
+                            <li><a href="javascript:void(0);">Omoda</a></li>
+                            <li><a href="javascript:void(0);">Opel</a></li>
+                            <li><a href="javascript:void(0);">Peugeot</a></li>
+                            <li><a href="javascript:void(0);">Renault</a></li>
+                            <li><a href="javascript:void(0);">Skoda</a></li>
+                            <li><a href="javascript:void(0);">Subaru</a></li>
+                            <li><a href="javascript:void(0);">Suzuki</a></li>
+                            <li><a href="javascript:void(0);">Tank</a></li>
+                            <li><a href="javascript:void(0);">Toyota</a></li>
+                            <li><a href="javascript:void(0);">UAZ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__regs">
+                <div class="container">
+                    <article>
+                        <noindex>Для получения подробной информации о стоимости автомобилей обращайтесь к менеджерам по
+                            продажам. Любая информация, содержащаяся на настоящем сайте, носит исключительно справочный
+                            характер и ни при каких обстоятельствах не может быть расценена как предложение заключить
+                            договор (публичная оферта). Автоцентр не дает гарантий по поводу своевременности, точности и
+                            полноты информации на веб-сайте, а также по поводу беспрепятственного доступа к нему в любое
+                            время. Технические характеристики и оборудование автомобилей, условия приобретения
+                            автомобилей, цены, спецпредложения и комплектации автомобилей, указанные на сайте, приведены
+                            для примера и могут быть изменены в любое время без предварительного уведомления. Для
+                            получения подробной информации об актуальных ценах на продукцию и наличии автомобилей
+                            обращайтесь в дилерский центр. Приобретение любой продукции бренда осуществляется в
+                            соответствии с условиями индивидуального договора купли-продажи. Представленное изображение
+                            автомобиля может отличаться от реализуемого. Не является публичной офертой. Размер платежа в
+                            день означает величину затрат заемщика, эквивалентную ежемесячному платежу при условии 30
+                            (тридцати) календарных дней в месяце, взявшего кредит по программе кредитования ВТБ (далее –
+                            «Банк») на покупку нового автомобиля с расчетной розничной ценой в начально комплектации, на
+                            срок 60 мес., с первоначальным взносом 57,92% от стоимости автомобиля, остаточным платежом
+                            (далее ОП) 20% от стоимости автомобиля и процентной ставкой 14,5%. Данная информация не
+                            является офертой Банка, расчет является приблизительным. Полная стоимость кредита и
+                            конкретные параметры кредита будут рассчитаны на основании Анкеты клиента, направляемой в
+                            Банк для одобрения кредитной заявки. Основные условия кредитования ВТБ (далее Банк) на
+                            покупку нового автомобиля по продукту «Кредит с остаточным платежом на приобретение нового
+                            автомобиля» валюта кредита – рубли РФ; сумма кредита от 120 тыс. до 5.8 млн. ₽ Процентная
+                            ставка (в % годовых) при сроке от 12 до 60 мес. – 14,5% при первоначальном взносе (далее ПВ)
+                            от 15% (включительно). При ПВ менее 20% необходимо предоставление полного пакета документов.
+                            Минимальный размер остаточного платежа (далее ОП) в % от стоимости автомобиля – 20%;
+                            максимальный размер ОП при сроке при сроке кредита 12 мес. – 60%, при сроках от 13 до 24
+                            мес. – 50%, при сроках от 25 до 36 мес. – 45%, при сроках от 37 до 48 мес. – 30%, при сроках
+                            от 49 до 60 мес. – 20%. Обеспечение по кредиту – залог приобретаемого автомобиля. Условия
+                            кредита действительны до 01.06.2025 и могут быть изменены Банком. Лицензия ЦБ РФ № 1000
+                            <br><br>
+
+                            Пользователь данного интернет-ресурса обратившийся, через специальные формы связи,
+                            размещённые на данном сайте, а также по средствам телефонного звонка, выражает свое
+                            безусловное согласие продолжить устную или письменную коммуникацию с помощью электронных
+                            средств связи, в т.ч.: sms-информирование,
+                            e-mail-рассылка&nbsp;и&nbsp;т.п.&nbsp;и&nbsp;т.д.<br><br>
+                        </noindex>
+
+                        Все цены на сайте указаны с учетом скидок.<br><br>
+
+                        Банк-партнер: ВТБ (ПАО), Лицензия Банка ВТБ — №1000 от 08.07.2015.
+
+                        Партнер по страхованию: СПАО «Ингосстрах», лицензия ЦБ РФ № 0928<br><br>
+
+                        Реквизиты организации: ООО "АВТОДОМ " ИНН 6166128253 ОГРН 1236100016910 <br><br>
+                    </article>
+                </div>
+            </div>
+        </footer>
+        <div class="bottom-fixed-actions">
+            <a href="https://api.whatsapp.com/send?phone=79860041672" target="_blank"
+                class="bottom-fixed-actions__phone-btn">
+                <svg fill="#fff" height="30px" width="30px" version="1.1" id="Layer_1"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 308 308"
+                    xml:space="preserve">
+                    <g id="XMLID_468_">
+                        <path id="XMLID_469_" d="M227.904,176.981c-0.6-0.288-23.054-11.345-27.044-12.781c-1.629-0.585-3.374-1.156-5.23-1.156
+    		c-3.032,0-5.579,1.511-7.563,4.479c-2.243,3.334-9.033,11.271-11.131,13.642c-0.274,0.313-0.648,0.687-0.872,0.687
+    		c-0.201,0-3.676-1.431-4.728-1.888c-24.087-10.463-42.37-35.624-44.877-39.867c-0.358-0.61-0.373-0.887-0.376-0.887
+    		c0.088-0.323,0.898-1.135,1.316-1.554c1.223-1.21,2.548-2.805,3.83-4.348c0.607-0.731,1.215-1.463,1.812-2.153
+    		c1.86-2.164,2.688-3.844,3.648-5.79l0.503-1.011c2.344-4.657,0.342-8.587-0.305-9.856c-0.531-1.062-10.012-23.944-11.02-26.348
+    		c-2.424-5.801-5.627-8.502-10.078-8.502c-0.413,0,0,0-1.732,0.073c-2.109,0.089-13.594,1.601-18.672,4.802
+    		c-5.385,3.395-14.495,14.217-14.495,33.249c0,17.129,10.87,33.302,15.537,39.453c0.116,0.155,0.329,0.47,0.638,0.922
+    		c17.873,26.102,40.154,45.446,62.741,54.469c21.745,8.686,32.042,9.69,37.896,9.69c0.001,0,0.001,0,0.001,0
+    		c2.46,0,4.429-0.193,6.166-0.364l1.102-0.105c7.512-0.666,24.02-9.22,27.775-19.655c2.958-8.219,3.738-17.199,1.77-20.458
+    		C233.168,179.508,230.845,178.393,227.904,176.981z"></path>
+                        <path id="XMLID_470_" d="M156.734,0C73.318,0,5.454,67.354,5.454,150.143c0,26.777,7.166,52.988,20.741,75.928L0.212,302.716
+    		c-0.484,1.429-0.124,3.009,0.933,4.085C1.908,307.58,2.943,308,4,308c0.405,0,0.813-0.061,1.211-0.188l79.92-25.396
+    		c21.87,11.685,46.588,17.853,71.604,17.853C240.143,300.27,308,232.923,308,150.143C308,67.354,240.143,0,156.734,0z
+    		 M156.734,268.994c-23.539,0-46.338-6.797-65.936-19.657c-0.659-0.433-1.424-0.655-2.194-0.655c-0.407,0-0.815,0.062-1.212,0.188
+    		l-40.035,12.726l12.924-38.129c0.418-1.234,0.209-2.595-0.561-3.647c-14.924-20.392-22.813-44.485-22.813-69.677
+    		c0-65.543,53.754-118.867,119.826-118.867c66.064,0,119.812,53.324,119.812,118.867
+    		C276.546,215.678,222.799,268.994,156.734,268.994z"></path>
+                    </g>
+                </svg>
+                <div class="bottom-fixed-actions-button-text">
+                    WhatsApp
+                    <br><small>напишите нам</small>
+                </div>
+            </a>
+            <style>
+                @media (min-width: 768px) {
+                    .bottom-fixed-actions {
+                        display: none;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                    .bottom-fixed-actions {
+                        position: fixed;
+                        bottom: 0;
+                        width: 100%;
+                        z-index: 10;
+                        -webkit-box-shadow: 0 0 17px rgb(0 0 0 / 31%);
+                        box-shadow: 0 0 17px rgb(0 0 0 / 31%);
+                        display: -ms-grid;
+                        -ms-flex-align: center;
+                        padding: 4px;
+                        grid-gap: 10px;
+                        -webkit-backdrop-filter: blur(5px);
+                        backdrop-filter: blur(5px);
+                    }
+
+                    .bottom-fixed-actions__phone-btn {
+                        display: -ms-flexbox;
+                        display: flex;
+                        -webkit-box-align: center;
+                        -ms-flex-align: center;
+                        align-items: center;
+                        -ms-flex-pack: center;
+                        justify-content: center;
+                        text-align: center;
+                        text-decoration: none;
+                        border-radius: 10px;
+                        height: 40px;
+                        gap: 10px;
+                    }
+
+                    .bottom-fixed-actions__phone-btn {
+                        background: #02d900;
+                        color: #fff;
+                        font-weight: bold;
+                        line-height: 14px;
+                        font-size: 14px;
+                    }
+
+                    .bottom-fixed-actions__phone-btn small {
+                        font-weight: normal;
+                        font-size: 11px;
+                    }
+                }
+            </style>
+        </div>
+
+        <a href="https://api.whatsapp.com/send?phone=79860041672" target="_blank" title="Написать в Whatsapp"
+            class="whatsapp-link" rel="noopener noreferrer">
+            <div class="whatsapp-button">
+                <svg fill="#fff" height="30px" width="30px" version="1.1" id="Layer_1"
+                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 308 308"
+                    xml:space="preserve">
+                    <g id="XMLID_468_">
+                        <path id="XMLID_469_" d="M227.904,176.981c-0.6-0.288-23.054-11.345-27.044-12.781c-1.629-0.585-3.374-1.156-5.23-1.156
+      		c-3.032,0-5.579,1.511-7.563,4.479c-2.243,3.334-9.033,11.271-11.131,13.642c-0.274,0.313-0.648,0.687-0.872,0.687
+      		c-0.201,0-3.676-1.431-4.728-1.888c-24.087-10.463-42.37-35.624-44.877-39.867c-0.358-0.61-0.373-0.887-0.376-0.887
+      		c0.088-0.323,0.898-1.135,1.316-1.554c1.223-1.21,2.548-2.805,3.83-4.348c0.607-0.731,1.215-1.463,1.812-2.153
+      		c1.86-2.164,2.688-3.844,3.648-5.79l0.503-1.011c2.344-4.657,0.342-8.587-0.305-9.856c-0.531-1.062-10.012-23.944-11.02-26.348
+      		c-2.424-5.801-5.627-8.502-10.078-8.502c-0.413,0,0,0-1.732,0.073c-2.109,0.089-13.594,1.601-18.672,4.802
+      		c-5.385,3.395-14.495,14.217-14.495,33.249c0,17.129,10.87,33.302,15.537,39.453c0.116,0.155,0.329,0.47,0.638,0.922
+      		c17.873,26.102,40.154,45.446,62.741,54.469c21.745,8.686,32.042,9.69,37.896,9.69c0.001,0,0.001,0,0.001,0
+      		c2.46,0,4.429-0.193,6.166-0.364l1.102-0.105c7.512-0.666,24.02-9.22,27.775-19.655c2.958-8.219,3.738-17.199,1.77-20.458
+      		C233.168,179.508,230.845,178.393,227.904,176.981z"></path>
+                        <path id="XMLID_470_" d="M156.734,0C73.318,0,5.454,67.354,5.454,150.143c0,26.777,7.166,52.988,20.741,75.928L0.212,302.716
+      		c-0.484,1.429-0.124,3.009,0.933,4.085C1.908,307.58,2.943,308,4,308c0.405,0,0.813-0.061,1.211-0.188l79.92-25.396
+      		c21.87,11.685,46.588,17.853,71.604,17.853C240.143,300.27,308,232.923,308,150.143C308,67.354,240.143,0,156.734,0z
+      		 M156.734,268.994c-23.539,0-46.338-6.797-65.936-19.657c-0.659-0.433-1.424-0.655-2.194-0.655c-0.407,0-0.815,0.062-1.212,0.188
+      		l-40.035,12.726l12.924-38.129c0.418-1.234,0.209-2.595-0.561-3.647c-14.924-20.392-22.813-44.485-22.813-69.677
+      		c0-65.543,53.754-118.867,119.826-118.867c66.064,0,119.812,53.324,119.812,118.867
+      		C276.546,215.678,222.799,268.994,156.734,268.994z"></path>
+                    </g>
+                </svg>
+            </div>
+        </a>
+        <style>
+            .whatsapp-button {
+                position: fixed;
+                right: 13px;
+                bottom: 90px;
+                transform: translate(-50%, -50%);
+                background: #25d366;
+                border-radius: 50%;
+                width: 55px;
+                height: 55px;
+                color: #fff;
+                text-align: center;
+                line-height: 53px;
+                font-size: 35px;
+                z-index: 9999;
+                display: flex;
+                margin: auto
+            }
+
+            .whatsapp-button a {
+                color: #fff
+            }
+
+            .whatsapp-button:after,
+            .whatsapp-button:before {
+                content: " ";
+                display: block;
+                position: absolute;
+                border: 1px solid #25d366;
+                left: -20px;
+                right: -20px;
+                top: -20px;
+                bottom: -20px;
+                border-radius: 50%;
+                animation: 1.5s linear infinite animate;
+                opacity: 0;
+                backface-visibility: hidden
+            }
+
+            .whatsapp-button:after {
+                animation-delay: .5s
+            }
+
+            @keyframes animate {
+                0% {
+                    transform: scale(.5);
+                    opacity: 0
+                }
+
+                50% {
+                    opacity: 1
+                }
+
+                100% {
+                    transform: scale(1.2);
+                    opacity: 0
+                }
+            }
+
+            .whatsapp-button svg {
+                display: flex;
+                margin: 12px auto auto
+            }
+
+            @media (max-width:769px) {
+                .whatsapp-link {
+                    display: none
+                }
+            }
+
+            .bottom-fixed-actions__phone-btn:before {
+                display: none;
+            }
+        </style>
+        <div class="popup" id="popup-feedback"
+            style="display: none; width: 23rem; background-image: url('../img/popup-feedback-bg.jpg')">
+            <div class="popup__popup-inner">
+                <h2 class="popup__popup-title">Остались вопросы?</h2>
+                <div class="popup__text">Оставьте свой номер, и мы перезвоним Вам в ближайшее время!</div>
+                <form id="callback" class="popup__form form">
+
+                    <input class="input" name="name" type="text" placeholder="Ф.И.О.">
+                    <input class="input" name="telephone" type="text" id="phone"
+                        placeholder="+7 (_ _ _) - _ _ _ - _ _ - _ _" autocomplete="off" required="">
+                    <label class="checkbox">
+                        <input type="checkbox" checked="checked">
+                        <div class="checkbox__checkmark"></div>
+                        <div class="checkbox__label">
+                            Согласен
+                            <a href="/privacy" target="_blank">на обработку персональных
+                                данных</a>
+                        </div>
+                    </label>
+                    <input type="hidden" name="comment" value="Обратный звонок">
+                    <input type="hidden" name="form_name" value="callback">
+                    <button class="btn btn--primary" type="submit">Перезвоните мне</button>
+                </form>
+            </div>
+        </div>
+
+        <!--<div class="popup" id="modal-marquee" style="display: none; width: 23rem;">
+            <div class="popup__popup-inner">
+                <div style="text-align:center;">
+                    <svg class="modal_icon" width="91px" height="91px" viewBox="0 0 24.00 24.00" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" stroke="#ffdd2d">
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC"
+                            stroke-width="0.672"></g>
+                        <g id="SVGRepo_iconCarrier">
+                            <path
+                                d="M3 7C3 4.79086 4.79086 3 7 3H17C19.2091 3 21 4.79086 21 7V17C21 19.2091 19.2091 21 17 21H7C4.79086 21 3 19.2091 3 17V7Z"
+                                stroke="#ffdd2d" stroke-width="2.208"></path>
+                            <path d="M15 9L9 15" stroke="#ffdd2d" stroke-width="2.208" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                            <path
+                                d="M16 14.5C16 15.3284 15.3284 16 14.5 16C13.6716 16 13 15.3284 13 14.5C13 13.6716 13.6716 13 14.5 13C15.3284 13 16 13.6716 16 14.5Z"
+                                fill="#ffdd2d"></path>
+                            <path
+                                d="M11 9.5C11 10.3284 10.3284 11 9.5 11C8.67157 11 8 10.3284 8 9.5C8 8.67157 8.67157 8 9.5 8C10.3284 8 11 8.67157 11 9.5Z"
+                                fill="#ffdd2d"></path>
+                        </g>
+                    </svg>
+                </div>
+                <h2 class="popup__popup-title">Авторассрочка!</h2>
+                <div class="popup__text">Оставьте свой номер, наш менеджер расскажет Вам условия рассрочки!</div>
+                <form id="callback" class="popup__form form">
+                    <input class="input" name="name" type="text" placeholder="Ф.И.О.">
+                    <input class="input" name="telephone" type="text" id="phone"
+                        placeholder="+7 (_ _ _) - _ _ _ - _ _ - _ _" autocomplete="off" required="">
+                    <label class="checkbox">
+                        <input type="checkbox" checked="checked">
+                        <div class="checkbox__checkmark"></div>
+                        <div class="checkbox__label">
+                            Согласен
+                            <a href="privacy" target="_blank">на обработку персональных
+                                данных</a>
+                        </div>
+                    </label>
+                    <input type="hidden" name="comment" value="Обратный звонок">
+                    <input type="hidden" name="form_name" value="callback">
+                    <button class="btn btn--primary" type="submit">Перезвоните мне</button>
+                </form>
+            </div>-->
+    </div>
+
+    <div class="popup-thanks" id="popup-thanks" style="display: none; width: 33rem">
+        <div class="popup-thanks__popup-inner">
+            <div class="popup-thanks__content">
+                <h2 class="popup-thanks__popup-title">Спасибо!</h2>
+                <div class="popup-thanks__text">Ваша заявка принята, мы скоро свяжемся с Вами!</div>
+            </div>
+            <div class="popup-thanks__asset"><img src="../img/popup-thanks-asset.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/vendors/jquery.min.js"></script>
+    <script src="../js/vendors/swiper-bundle.min.js"></script>
+    <script src="../js/vendors/select2.min.js"></script>
+    <script src="../js/vendors/jquery.fancybox.min.js"></script>
+    <script src="../js/vendors/jquery.maskedinput.js"></script>
+    <script src="../js/vendors/tortik.lib.js"></script>
+    <script src="../js/vendors/lazyload.min.js"></script>
+    <script src="../js/vendors/jquery.cookies.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/dev.js"></script>
+    <script src="../js/vendors/imask.js"></script>
+    <script type="text/javascript" src="../js/vendors/toastr.js"></script>
+    <script type="text/javascript" src="../js/mdform.js"></script>
+
+    </div>
+</body>
+
+</html>
