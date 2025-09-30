@@ -1,18 +1,6 @@
 <html lang="ru">
 
 <head>
-    <style>
-        body {
-            transition: opacity ease-in 0.2s;
-        }
-
-        body[unresolved] {
-            opacity: 0;
-            display: block;
-            overflow: hidden;
-            position: relative;
-        }
-    </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, user-scalable=1"
@@ -30,103 +18,14 @@
     <meta property="og:image" content="../img/logo/01JRWSWB95J6GP3H48S5929RP8.svg">
 
     <link href="../css/vendors/reset.css" rel="stylesheet">
-    <link href="../css/vendors/select2.min.css" rel="stylesheet">
     <link href="../css/vendors/jquery.fancybox.min.css" rel="stylesheet">
     <link href="../css/vendors/swiper-bundle.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/dev.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/vendors/toastr.css">
 
-    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../img/favicon/01JRWSWB976MM8B6QGFWZY4DYW.ico">
 
-    <style>
-        /* Make clicks pass-through */
-
-        #nprogress {
-            pointer-events: none;
-        }
-
-        #nprogress .bar {
-            background: var(--livewire-progress-bar-color, #29d);
-
-            position: fixed;
-            z-index: 1031;
-            top: 0;
-            left: 0;
-
-            width: 100%;
-            height: 2px;
-        }
-
-        /* Fancy blur effect */
-        #nprogress .peg {
-            display: block;
-            position: absolute;
-            right: 0px;
-            width: 100px;
-            height: 100%;
-            box-shadow: 0 0 10px var(--livewire-progress-bar-color, #29d), 0 0 5px var(--livewire-progress-bar-color, #29d);
-            opacity: 1.0;
-
-            -webkit-transform: rotate(3deg) translate(0px, -4px);
-            -ms-transform: rotate(3deg) translate(0px, -4px);
-            transform: rotate(3deg) translate(0px, -4px);
-        }
-
-        /* Remove these to get rid of the spinner */
-        #nprogress .spinner {
-            display: block;
-            position: fixed;
-            z-index: 1031;
-            top: 15px;
-            right: 15px;
-        }
-
-        #nprogress .spinner-icon {
-            width: 18px;
-            height: 18px;
-            box-sizing: border-box;
-
-            border: solid 2px transparent;
-            border-top-color: var(--livewire-progress-bar-color, #29d);
-            border-left-color: var(--livewire-progress-bar-color, #29d);
-            border-radius: 50%;
-
-            -webkit-animation: nprogress-spinner 400ms linear infinite;
-            animation: nprogress-spinner 400ms linear infinite;
-        }
-
-        .nprogress-custom-parent {
-            overflow: hidden;
-            position: relative;
-        }
-
-        .nprogress-custom-parent #nprogress .spinner,
-        .nprogress-custom-parent #nprogress .bar {
-            position: absolute;
-        }
-
-        @-webkit-keyframes nprogress-spinner {
-            0% {
-                -webkit-transform: rotate(0deg);
-            }
-
-            100% {
-                -webkit-transform: rotate(360deg);
-            }
-        }
-
-        @keyframes nprogress-spinner {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -168,14 +67,14 @@
                     <nav class="header-main__nav header-main-nav">
                         <ul class="header-main-nav__list">
                             <li class="header-main-nav__item">
-                                <a class="header-main-nav__item-link   " href="../used/index.html">С
+                                <a class="header-main-nav__item-link   " href="../used">С
                                     пробегом</a>
                             </li>
                             <li class="header-main-nav__item">
-                                <a class="header-main-nav__item-link current" href="../credit/index.html">Кредит</a>
+                                <a class="header-main-nav__item-link current" href="../credit">Кредит</a>
                             </li>
                             <li class="header-main-nav__item">
-                                <a class="header-main-nav__item-link" href="../contact/index.html">Контакты</a>
+                                <a class="header-main-nav__item-link" href="../contact">Контакты</a>
                             </li>
                         </ul>
                     </nav>
@@ -225,14 +124,14 @@
                     <nav class="header-mobile-menu__nav">
                         <ul class="header-mobile-menu__list">
                             <li class="header-mobile-menu__item">
-                                <a class=" header-mobile-menu__item-link" href="../used/index.html">С
+                                <a class=" header-mobile-menu__item-link" href="../used">С
                                     пробегом</a>
                             </li>
                             <li class="header-mobile-menu__item">
-                                <a class=" header-mobile-menu__item-link current" href="../credit/index.html">Кредит</a>
+                                <a class=" header-mobile-menu__item-link current" href="../credit">Кредит</a>
                             </li>
                             <li class="header-mobile-menu__item">
-                                <a class=" header-mobile-menu__item-link" href="../contact/index.html">Контакты</a>
+                                <a class=" header-mobile-menu__item-link" href="../contact">Контакты</a>
                             </li>
                         </ul>
                     </nav>
@@ -403,7 +302,7 @@
         <main class="main">
             <section class="breadcrumbs">
                 <div class="container">
-                    <a href="https://comfort-lnkn.ru" class="breadcrumbs__item">Главная</a>
+                    <a href="/" class="breadcrumbs__item">Главная</a>
                     <span class="breadcrumbs__item breadcrumbs__item--current">Автомобиль в кредит в
                         Ростове-на-Дону</span>
                 </div>
@@ -507,8 +406,7 @@
                         </form>
                         <div class="credit-main__main">
                             <div class="credit-main__car">
-                                <img src="https://comfort-lnkn.ru/views/img/car-placeholder.png" alt=""
-                                    class="car-preview">
+                                <img src="../img/car-placeholder.png" alt="" class="car-preview">
                             </div>
                             <div class="credit-main__prices">
                                 <div class="credit-main__price-group">
@@ -650,17 +548,17 @@
                         <nav class="footer-main__nav header-main-nav">
                             <ul class="header-main-nav__list">
                                 <li class=" header-main-nav__item ">
-                                    <a href="../used/index.html" class="header-main-nav__item-link ">
+                                    <a href="../used" class="header-main-nav__item-link ">
                                         С пробегом
                                     </a>
                                 </li>
                                 <li class=" header-main-nav__item ">
-                                    <a href="../credit/index.html" class="header-main-nav__item-link current">
+                                    <a href="../credit" class="header-main-nav__item-link current">
                                         Кредит
                                     </a>
                                 </li>
                                 <li class=" header-main-nav__item">
-                                    <a href="../contact/index.html" class="header-main-nav__item-link">
+                                    <a href="../contact" class="header-main-nav__item-link">
                                         Контакты
                                     </a>
                                 </li>
@@ -806,58 +704,6 @@
                     <br><small>напишите нам</small>
                 </div>
             </a>
-            <style>
-                @media (min-width: 768px) {
-                    .bottom-fixed-actions {
-                        display: none;
-                    }
-                }
-
-                @media (max-width: 768px) {
-                    .bottom-fixed-actions {
-                        position: fixed;
-                        bottom: 0;
-                        width: 100%;
-                        z-index: 10;
-                        -webkit-box-shadow: 0 0 17px rgb(0 0 0 / 31%);
-                        box-shadow: 0 0 17px rgb(0 0 0 / 31%);
-                        display: -ms-grid;
-                        -ms-flex-align: center;
-                        padding: 4px;
-                        grid-gap: 10px;
-                        -webkit-backdrop-filter: blur(5px);
-                        backdrop-filter: blur(5px);
-                    }
-
-                    .bottom-fixed-actions__phone-btn {
-                        display: -ms-flexbox;
-                        display: flex;
-                        -webkit-box-align: center;
-                        -ms-flex-align: center;
-                        align-items: center;
-                        -ms-flex-pack: center;
-                        justify-content: center;
-                        text-align: center;
-                        text-decoration: none;
-                        border-radius: 10px;
-                        height: 40px;
-                        gap: 10px;
-                    }
-
-                    .bottom-fixed-actions__phone-btn {
-                        background: #02d900;
-                        color: #fff;
-                        font-weight: bold;
-                        line-height: 14px;
-                        font-size: 14px;
-                    }
-
-                    .bottom-fixed-actions__phone-btn small {
-                        font-weight: normal;
-                        font-size: 11px;
-                    }
-                }
-            </style>
         </div>
 
         <a href="https://api.whatsapp.com/send?phone=79860041672" target="_blank" title="Написать в Whatsapp"
@@ -888,80 +734,6 @@
                 </svg>
             </div>
         </a>
-        <style>
-            .whatsapp-button {
-                position: fixed;
-                right: 13px;
-                bottom: 90px;
-                transform: translate(-50%, -50%);
-                background: #25d366;
-                border-radius: 50%;
-                width: 55px;
-                height: 55px;
-                color: #fff;
-                text-align: center;
-                line-height: 53px;
-                font-size: 35px;
-                z-index: 9999;
-                display: flex;
-                margin: auto
-            }
-
-            .whatsapp-button a {
-                color: #fff
-            }
-
-            .whatsapp-button:after,
-            .whatsapp-button:before {
-                content: " ";
-                display: block;
-                position: absolute;
-                border: 1px solid #25d366;
-                left: -20px;
-                right: -20px;
-                top: -20px;
-                bottom: -20px;
-                border-radius: 50%;
-                animation: 1.5s linear infinite animate;
-                opacity: 0;
-                backface-visibility: hidden
-            }
-
-            .whatsapp-button:after {
-                animation-delay: .5s
-            }
-
-            @keyframes animate {
-                0% {
-                    transform: scale(.5);
-                    opacity: 0
-                }
-
-                50% {
-                    opacity: 1
-                }
-
-                100% {
-                    transform: scale(1.2);
-                    opacity: 0
-                }
-            }
-
-            .whatsapp-button svg {
-                display: flex;
-                margin: 12px auto auto
-            }
-
-            @media (max-width:769px) {
-                .whatsapp-link {
-                    display: none
-                }
-            }
-
-            .bottom-fixed-actions__phone-btn:before {
-                display: none;
-            }
-        </style>
         <div class="popup" id="popup-feedback"
             style="display: none; width: 23rem; background-image: url('../img/popup-feedback-bg.jpg')">
             <div class="popup__popup-inner">
@@ -987,50 +759,6 @@
                 </form>
             </div>
         </div>
-
-        <!--<div class="popup" id="modal-marquee" style="display: none; width: 23rem;">
-            <div class="popup__popup-inner">
-                <div style="text-align:center;">
-                    <svg class="modal_icon" width="91px" height="91px" viewBox="0 0 24.00 24.00" fill="none"
-                        xmlns="http://www.w3.org/2000/svg" stroke="#ffdd2d">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC"
-                            stroke-width="0.672"></g>
-                        <g id="SVGRepo_iconCarrier">
-                            <path
-                                d="M3 7C3 4.79086 4.79086 3 7 3H17C19.2091 3 21 4.79086 21 7V17C21 19.2091 19.2091 21 17 21H7C4.79086 21 3 19.2091 3 17V7Z"
-                                stroke="#ffdd2d" stroke-width="2.208"></path>
-                            <path d="M15 9L9 15" stroke="#ffdd2d" stroke-width="2.208" stroke-linecap="round"
-                                stroke-linejoin="round"></path>
-                            <path
-                                d="M16 14.5C16 15.3284 15.3284 16 14.5 16C13.6716 16 13 15.3284 13 14.5C13 13.6716 13.6716 13 14.5 13C15.3284 13 16 13.6716 16 14.5Z"
-                                fill="#ffdd2d"></path>
-                            <path
-                                d="M11 9.5C11 10.3284 10.3284 11 9.5 11C8.67157 11 8 10.3284 8 9.5C8 8.67157 8.67157 8 9.5 8C10.3284 8 11 8.67157 11 9.5Z"
-                                fill="#ffdd2d"></path>
-                        </g>
-                    </svg>
-                </div>
-                <h2 class="popup__popup-title">Авторассрочка!</h2>
-                <div class="popup__text">Оставьте свой номер, наш менеджер расскажет Вам условия рассрочки!</div>
-                <form id="callback" class="popup__form form">
-                    <input class="input" name="name" type="text" placeholder="Ф.И.О.">
-                    <input class="input" name="telephone" type="text" id="phone"
-                        placeholder="+7 (_ _ _) - _ _ _ - _ _ - _ _" autocomplete="off" required="">
-                    <label class="checkbox">
-                        <input type="checkbox" checked="checked">
-                        <div class="checkbox__checkmark"></div>
-                        <div class="checkbox__label">
-                            Согласен
-                            <a href="privacy" target="_blank">на обработку персональных
-                                данных</a>
-                        </div>
-                    </label>
-                    <input type="hidden" name="comment" value="Обратный звонок">
-                    <input type="hidden" name="form_name" value="callback">
-                    <button class="btn btn--primary" type="submit">Перезвоните мне</button>
-                </form>
-            </div>-->
     </div>
 
     <div class="popup-thanks" id="popup-thanks" style="display: none; width: 33rem">
@@ -1046,14 +774,10 @@
 
     <script src="../js/vendors/jquery.min.js"></script>
     <script src="../js/vendors/swiper-bundle.min.js"></script>
-    <script src="../js/vendors/select2.min.js"></script>
     <script src="../js/vendors/jquery.fancybox.min.js"></script>
     <script src="../js/vendors/jquery.maskedinput.js"></script>
-    <script src="../js/vendors/tortik.lib.js"></script>
     <script src="../js/vendors/lazyload.min.js"></script>
-    <script src="../js/vendors/jquery.cookies.js"></script>
     <script src="../js/script.js"></script>
-    <script src="../js/dev.js"></script>
     <script src="../js/vendors/imask.js"></script>
     <script type="text/javascript" src="../js/vendors/toastr.js"></script>
     <script type="text/javascript" src="../js/mdform.js"></script>

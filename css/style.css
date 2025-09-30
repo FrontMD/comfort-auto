@@ -2381,6 +2381,7 @@ input:checked+.checkbox__checkmark::after {
 }
 
 .model-used__car-main {
+	height: fit-content;
 	margin-bottom: 0.63rem;
 }
 
@@ -3452,5 +3453,135 @@ input:checked+.checkbox__checkmark::after {
 
 	.js-checked-table>b {
 		font-size: 12px;
+	}
+}
+
+
+.js-car-preview {
+	border-radius: 20px;
+	margin-bottom: 20px;
+}
+
+.whatsapp-button {
+	position: fixed;
+	right: 13px;
+	bottom: 90px;
+	transform: translate(-50%, -50%);
+	background: #25d366;
+	border-radius: 50%;
+	width: 55px;
+	height: 55px;
+	color: #fff;
+	text-align: center;
+	line-height: 53px;
+	font-size: 35px;
+	z-index: 9999;
+	display: flex;
+	margin: auto
+}
+
+.whatsapp-button a {
+	color: #fff
+}
+
+.whatsapp-button:after,
+.whatsapp-button:before {
+	content: " ";
+	display: block;
+	position: absolute;
+	border: 1px solid #25d366;
+	left: -20px;
+	right: -20px;
+	top: -20px;
+	bottom: -20px;
+	border-radius: 50%;
+	animation: 1.5s linear infinite animate;
+	opacity: 0;
+	backface-visibility: hidden
+}
+
+.whatsapp-button:after {
+	animation-delay: .5s
+}
+
+@keyframes animate {
+	0% {
+		transform: scale(.5);
+		opacity: 0
+	}
+
+	50% {
+		opacity: 1
+	}
+
+	100% {
+		transform: scale(1.2);
+		opacity: 0
+	}
+}
+
+.whatsapp-button svg {
+	display: flex;
+	margin: 12px auto auto
+}
+
+@media (max-width:769px) {
+	.whatsapp-link {
+		display: none
+	}
+}
+
+.bottom-fixed-actions__phone-btn:before {
+	display: none;
+}
+
+@media (min-width: 768px) {
+	.bottom-fixed-actions {
+		display: none;
+	}
+}
+
+@media (max-width: 768px) {
+	.bottom-fixed-actions {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		z-index: 10;
+		-webkit-box-shadow: 0 0 17px rgb(0 0 0 / 31%);
+		box-shadow: 0 0 17px rgb(0 0 0 / 31%);
+		display: -ms-grid;
+		-ms-flex-align: center;
+		padding: 4px;
+		grid-gap: 10px;
+		-webkit-backdrop-filter: blur(5px);
+		backdrop-filter: blur(5px);
+	}
+
+	.bottom-fixed-actions__phone-btn {
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		text-align: center;
+		text-decoration: none;
+		border-radius: 10px;
+		height: 40px;
+		gap: 10px;
+	}
+
+	.bottom-fixed-actions__phone-btn {
+		background: #02d900;
+		color: #fff;
+		font-weight: bold;
+		line-height: 14px;
+		font-size: 14px;
+	}
+
+	.bottom-fixed-actions__phone-btn small {
+		font-weight: normal;
+		font-size: 11px;
 	}
 }

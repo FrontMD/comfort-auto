@@ -11,12 +11,10 @@ new (class Frontend {
 			this.setSpecialCardGallery();
 
 			this.setLazyload();
-			//this.setSelect2();
 			this.setPartnersSlider();
 			this.setMarksSwiper();
 			this.setBaseSwipers();
 			this.setDrops();
-			//this.setMySelect();
 
 			this.setComplectationAccordion();
 
@@ -30,14 +28,6 @@ new (class Frontend {
 	setToggleMarks() {
 		let toggle = $(".js-toggle-marks");
 		let target = $(".js-marks");
-
-		// $(document).click(function (event) {
-		// 	console.log("click");
-		// 	var $target = $(event.target);
-		// 	if (!$target.closest(target).length && target.hasClass("active")) {
-		// 		target.removeClass("active");
-		// 	}
-		// });
 
 		$(window).on("scroll", () => {
 			if (target.hasClass("active")) {
@@ -86,14 +76,6 @@ new (class Frontend {
 	setLazyload() {
 		new LazyLoad();
 	}
-    /*
-	setSelect2() {
-		$(".select").select2({
-			width: "100%",
-			minimumResultsForSearch: Infinity,
-		});
-	}
-    */
 	setMarksSwiper() {
 		let grid = {
 			rows: 3,
@@ -229,29 +211,7 @@ new (class Frontend {
 			});
 		});
 	}
-    /*
-	setMySelect() {
-		let select_view = $("[data-select-view]");
-		select_view.each((idx, el) => {
-			let target_id = $(el).attr("data-select-view");
 
-			if (!target_id) return;
-			let checks = $("[data-select-group-id='" + target_id + "']");
-
-			checks.on("change init", () => {
-				$(el).text(checks.filter(":checked").attr("data-select-value"));
-			});
-
-			let initial = checks.filter(":checked");
-			if (!initial.length) {
-				initial = checks.eq(0);
-			}
-
-			initial.attr("checked", true);
-			checks.trigger("init");
-		});
-	}
-    */
 	setComplectationAccordion() {
 		let block = $(".complectations");
 		let item = block.find(".complectation-item");
@@ -331,7 +291,6 @@ new (class Frontend {
 	}
 
 	setSpecialCardGallery() {
-		// Main catalog items gallery
 		const catalogCardGallery = new Swiper('.catalog-item-carousel', {
 			pagination: {
 				el: '.swiper-pagination',
